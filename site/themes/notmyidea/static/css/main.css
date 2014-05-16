@@ -27,6 +27,24 @@ body {
     text-align: left;
 }
 
+/* Figures -- B-Log */
+
+.b-log-fig {
+  width: 75%;
+  margin-left: auto; 
+  margin-right: auto;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #333;
+
+ }
+
+.b-log-fig-img { width: 100%; }
+
+/* Basic image */
+
+img { width: 100%; }
+
 /* Headings */
 h1 {font-size: 2em }
 h2 {font-size: 1.571em}	/* 22px */

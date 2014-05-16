@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+print("Haha!");
+
 AUTHOR = 'Fi Dot'
 SITENAME = 'N79FT'
 
@@ -24,12 +26,37 @@ DAY_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/{date:%d}/index.html'
 
 # THEME
 
-THEME = 'themes/plumage-master'
+THEME = 'themes/notmyidea'
+#THEME = 'themes/plumage-master'
+
+# TOP MENU
+
+MENUITEMS = (
+             ('Home', '/'),
+             ('separator', ''), 
+             ('About', '/fixme'),
+             ('separator', ''), 
+             ('Build', '/categories.html'),
+             ('Build Log and Totals', '/totals.html'), 
+             ('separator', ''), 
+             ('Misc', '/misc.html'),
+            );
+
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = False
+
+
+# TAGS
+TAG_CLOUD_STEPS = 4;
+
+# XXX
+
+#DOCUTILS_SETTINGS = { 'xxx' : 1 }
 
 
 #TODO re-enable with the theme
-#AUTHOR_SAVE_AS = '';
-#AUTHORS_SAVE_AS = '';
+AUTHOR_SAVE_AS = '';
+AUTHORS_SAVE_AS = '';
 
 
 # Feed generation is usually not desired when developing
@@ -48,12 +75,14 @@ STATIC_PATHS = ['images']
 # Plugins
 
 PLUGIN_PATH = 'plugins'
-PLUGINS = ['image_copy']
+PLUGINS = ['image_copy', 'figure_process']
+
+# Figure Processing Options
+
+FIG_PROC_REGEN_THUMBS = 0
 
 
 # Extra menu items
-
-MENUITEMS = (('Home', '/'),)
 
 # Blogroll
 LINKS =  (('Pelican', 'http://getpelican.com/'),

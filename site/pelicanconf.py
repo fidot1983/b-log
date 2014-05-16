@@ -22,6 +22,10 @@ YEAR_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/index.html'
 MONTH_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/index.html'
 DAY_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/{date:%d}/index.html'
 
+# THEME
+
+THEME = 'themes/plumage-master'
+
 
 #TODO re-enable with the theme
 #AUTHOR_SAVE_AS = '';

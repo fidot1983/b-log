@@ -27,9 +27,17 @@ DAY_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/{date:%d}/index.html'
 # THEME
 
 THEME = 'themes/notmyidea'
+CSS_FILE = 'fidot.css'
 #THEME = 'themes/plumage-master'
 
 # TOP MENU
+
+MENU_MAIN = (
+               ( 'Home', '/'), 
+               ( 'About', '/'), 
+            );
+
+MENU_INCLUDE_TAGS = 1
 
 MENUITEMS = (
              ('Home', '/'),

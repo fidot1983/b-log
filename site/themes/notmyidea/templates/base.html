@@ -2,8 +2,14 @@
 <html lang="{{ DEFAULT_LANG }}">
 <head>
         <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+
+        <!--
         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}" />
+        -->
 
         <!-- FancyBox -->
 
@@ -28,7 +34,6 @@
         <link rel="stylesheet" href="{{ SITEURL  }}/{{ THEME_STATIC_DIR}}/css/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
         <script type="text/javascript" src="{{ SITEURL  }}/{{ THEME_STATIC_DIR}}/css/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
-
         <script type="text/javascript">
             $(document).ready(function() {
                     $(".fancybox").fancybox();
@@ -36,6 +41,19 @@
         </script>
 
         <!-- End Fancy Box -->
+
+        <!-- Bootstrap --> 
+        <link rel="stylesheet" href="{{ SITEURL  }}/{{ THEME_STATIC_DIR}}/css/bootstrap/bootstrap.min.css"/>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- End Bootstrap --> 
+
 
         {% if FEED_ALL_ATOM %}
         <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
@@ -50,34 +68,100 @@
         
 </head>
 
-<body id="index" class="home">
+<body>
 {% include 'github.html' %}
-        <header id="banner" class="body">
-                <h1><a href="{{ SITEURL }}/">{{ SITENAME }} {% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
-                <nav>
-                 <!-- <ul>  -->
-                {% for title, link in MENUITEMS %}
-                   {% if title == "separator" %}
-                   <li><i class="fa fa-ellipsis-v fa-2x" style="color: #f00"></i></li>
-                   {% else %}
-                   <li><a href="{{ link }}">{{ title }}</a></li>
-                   {% endif %}
-                {% endfor %}
-                {% if DISPLAY_PAGES_ON_MENU -%}
-                {% for pg in PAGES %}
-                    <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
-                {% endfor %}
-                {% endif %}
-                {% if DISPLAY_CATEGORIES_ON_MENU -%}
-                {% for cat, null in categories %}
-                    <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                {% endfor %}
-                {% endif %}
-                </ul></nav>
-        </header><!-- /#banner -->
-        {% block content %}
-        {% endblock %}
-        <section id="extras" class="body">
+
+     <div class="container">
+      
+       <div class="row">
+         <p></p>
+       </div>
+
+       <div class="container-fluid">
+         <div class="panel panel-default"> 
+           <div class="panel-body"> 
+             <h1>{{ SITENAME }} {% if SITESUBTITLE %} <small>{{ SITESUBTITLE }}</small>{% endif %}</h1>
+           </div>
+         </div>
+       </div>
+
+       <div class="container-fluid">
+         <div class="row">
+           <!-- Menu -->
+           <div class="col-sm-3 col-md-3 sidebar">
+
+             <!-- Main Menu --> 
+             <div class="panel panel-default"> 
+              <div class="panel-heading"><b>Main</b></div> 
+               <div class="panel-body">
+                 <ul class="nav nav-sidebar">
+                      {% for title, link in MENU_MAIN %}
+                         <li><a href="{{ link }}">{{ title }}</a></li>
+                      {% endfor %}
+                 </ul>
+               </div>
+             </div>
+
+             <!-- Build Menu --> 
+             <div class="panel panel-default"> 
+               <div class="panel-heading">The Project</div> 
+               <div class="panel-body">
+                 <ul class="nav nav-sidebar">
+                      <li><a href="FIXME"><strong>Build Log</strong></a></li>
+                      {% for cat, null in categories %}
+                          <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a></li>
+                      {% endfor %}
+                 </ul>
+               </div>
+             </div>
+
+             <!-- Tags --> 
+             {% if MENU_INCLUDE_TAGS -%}
+             <!-- Build Menu --> 
+             <div class="panel panel-default"> 
+               <div class="panel-heading">Tags</div> 
+               <div class="panel-body">
+                 <p>
+                 {%- for tag, articles in tags|sort %}
+                   <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> 
+                 {% endfor %}
+                 </p>
+               </div>
+             </div>
+             {% endif %}
+
+
+             <div class="panel panel-default">
+               <div class="panel-body">
+                <!--<nav class="sidebar nav nav-sidebar navbar-collapse" role="navigation">-->
+                  <ul class="nav nav-sidebar">
+                      {% if DISPLAY_PAGES_ON_MENU -%}
+                      {% for pg in PAGES %}
+                          <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
+                      {% endfor %}
+                      {% endif %}
+                      {% if DISPLAY_CATEGORIES_ON_MENU -%}
+                      {% for cat, null in categories %}
+                          <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                      {% endfor %}
+                      {% endif %}
+                   </ul>
+               </div>
+             </div>
+          </div>
+          <div class="col-sm-9 col-md-9 main">
+            <div class="panel panel-default"> 
+              <div class="panel-body"> 
+                {% block content %}
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+       </div>
+       <section id="extras" class="body">
         {% if LINKS %}
                 <div class="blogroll">
                         <h2>blogroll</h2>
@@ -114,6 +198,7 @@
 
                 <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
+      </div>
 
 {% include 'analytics.html' %}
 {% include 'piwik.html' %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} - Build Log{% endblock %}
+{% block content %}
+     <div class="panel panel-default">
+        <div class="panel-body">
+         <strong>Total time logged: {{ TOTALS_TOTAL }} hours. </strong>
+        </div>
+     </div>
+
+     {% for entry in  TOTALS_BY_LOGTYPE %}
+        <div class="panel panel-default">
+         <div class="panel-heading">
+           <strong>In: [{{ entry.Category }}], {{ entry.Total }} hours, {{ entry.Count }} entries</strong>
+         </div>
+         <div class="panel-body">
+           <table class="table table-condensed"> 
+             <tbody>
+                 {% for article in entry.Articles %}
+                  <tr>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc">{{ article.locale_date }}</td>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc"><a href="{{ SITEURL}}/{{ article.url }}">{{ article.summary | replace("<p class=\"first last\">", "") | replace("</p>", "") }}</a></td>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc">{{ article.logged }} hours</td>
+                  </tr>
+                 {% endfor %}
+             </tbody>
+           </table>
+           <a class="btn btn-default btn-small" href="#top">Up &#x2191;</a>
+         </div>
+        </div>
+   {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} - {{ article.title|striptags }}{% endblock %}
+{% block content %}
+        <div class="panel panel-default">
+         <div class="panel-body">
+            <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+            <hr class="dashed"/>
+            {% include 'article_infos.html' %}{{ article.content }}{% include 'comments.html' %}
+
+            <hr class="dashed">
+            <a class="btn btn-default btn-small" href="#top">Up &#x2191;</a>
+         </div>
+        </div>
+{% endblock %}

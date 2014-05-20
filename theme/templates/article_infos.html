@@ -1,0 +1,32 @@
+
+<table class="table table-condensed">
+
+ <tr>
+  <td style="border-top: 0; padding: 0; width: 20%"><strong>On:</strong></td>
+  <td style="border-top: 0; padding: 0">{{ article.locale_date }}</td>
+ </tr>
+
+ <tr>
+  <td style="border-top: 0; padding: 0"><strong>In:</strong></td>
+  <td style="border-top: 0; padding: 0">
+    <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+  </td>
+ </tr>
+
+ <tr>
+  {% if article.logged %}
+  <td nowrap style="border-top: 0; padding: 0"><strong>Time logged:</strong></td>
+  <td style="border-top: 0; padding: 0">{{ article.logged }}</td>
+  {% endif %}
+ </tr>
+
+ {% if article.tags %}
+ <tr>
+  <td style="border-top: 0; padding: 0"><strong>Tags:</strong></td>
+  <td style="border-top: 0; padding: 0">
+   {% for tag in article.tags %}<a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+  </td>
+ </tr>
+ {% endif %}
+</table>
+<hr class="dashed"/>

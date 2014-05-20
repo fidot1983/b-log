@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% if articles %}
+    {% for article in articles_page.object_list %}
+
+        {# First item #}
+        {#% if loop.first and not articles_page.has_previous() %#}
+        <div class="panel panel-default">
+         {% block content_title %}{% endblock %}
+         <div class="panel-body">
+            <h1><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h1>
+            <hr class="dashed"/>
+            {% include 'article_infos.html' %}{{ article.content }}{% include 'comments.html' %}
+
+            <hr class="dashed">
+            {% if not loop.last %}
+               <a class="btn btn-default btn-small" href="#top">Up &#x2191;</a>
+            {% elif (articles_page.has_previous() or not articles_page.has_previous() and loop.length > 1) %}
+               {% include 'pagination.html' %}
+            {% endif %}
+
+         </div>
+        </div>
+
+
+    {% endfor %}
+{% endif %}
+{% endblock content %}

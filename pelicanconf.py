@@ -11,7 +11,9 @@ TIMEZONE = 'America/Chicago'
 LOCALE = ("en_US", "usa")
 
 DEFAULT_LANG = 'en'
-DELETE_OUTPUT_DIRECTORY= 1
+
+# DO NOT REENABLE -- GIT WILL SCREW ITSELF UP AND OVER!!
+DELETE_OUTPUT_DIRECTORY= 0
 
 DESCRIPTION = "Steen Skybolt N79FT builder's log, blog, and website. "
 KEYWORDS = "eaa,e/ab,test,check";
@@ -21,14 +23,12 @@ KEYWORDS = "eaa,e/ab,test,check";
 PATH = 'sample_content'
 PAGE_DIR = '__static'
 OUTPUT_PATH = '../fidot1983.github.io'
-OUTPUT_RETENTION = (".git")
 
 ARTICLE_EXCLUDES = ([PAGE_DIR])
 
 # URL and pages options
 
-SITEURL = 'http://localhost:8000'
-#SITEURL = 'http://79ft.net'
+SITEURL = ''
 
 ARTICLE_URL = 'build/{category}-{slug}/'
 ARTICLE_SAVE_AS = 'build/{category}-{slug}/index.html'
@@ -104,4 +104,5 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
 

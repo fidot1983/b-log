@@ -6,7 +6,7 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% if DESCRIPTION %}<meta name="description" content="{{ DESCRIPTION }}">{% endif %}
+        {% if DESCRIPTION %}<meta name="description" content="{% block description %}{{ DESCRIPTION }}{% endblock %}">{% endif %}
         {% if KEYWORDS %}<meta name="keywords" content="{{ KEYWORDS }}">{% endif %}
 
         <title>{% block title %}{{ SITENAME }} - {{ SITESUBTITLE }}{% endblock %}</title>
@@ -124,8 +124,10 @@
                           <p><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a></p>
                         {% endif %} 
                       {% endfor %}
-                      <hr class="dashed">
-                      <p><a href="{{ SITEURL}}/buildlog.html">Build Log</a></p>
+                      {% if TOTALS_TOTAL %}
+                        <hr class="dashed">
+                        <p><a href="{{ SITEURL}}/buildlog.html">Build Log</a></p>
+                      {% endif %}
                  </p>
                </div>
              </div>
@@ -185,7 +187,7 @@
 
       <div class="row">
          <div class="col-md-4">
-           <small>Powered by B-Log, which is based on <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>, heavily plugged and themed.</small>
+          <small>Powered by <a href="/build/blog-b-log/">B-Log</a>, which is based on <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>, heavily plugged and themed.</small>
          </div>
          <div class="col-md-4">
             {% set date_start = dates[-1].date.year if dates else None %}

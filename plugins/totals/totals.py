@@ -31,6 +31,7 @@ def calculate_totals(generator):
   generator.context['TOTALS_BY_LOGTYPE'] = out;
   generator.context['TOTALS_TOTAL' ] = total_time;
 
+
 def register():
   signals.article_generator_finalized.connect(calculate_totals);
 

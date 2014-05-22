@@ -1,13 +1,21 @@
 {% extends "base.html" %}
-{% block content %}
-<section id="content" class="body">
-<h1>Archives for {{ SITENAME }}</h1>
+{% block title %}{{ SITENAME }} - Archives {% endblock %}
 
-<dl>
-{% for article in dates %}
-    <dt>{{ article.locale_date }}</dt>
-    <dd><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></dd>
-{% endfor %}
-</dl>
-</section>
+{% block content %}
+<div class="panel panel-default">
+ <div class="panel-heading"><strong>Archives for {{ SITENAME }}:</strong></div>
+  <div class="panel-body">
+      <table class="table table-condensed"> 
+         <tbody>
+             {% for article in dates %}
+                  <tr>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc">{{ article.locale_date }}</td>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc"><a href="{{ SITEURL}}/{{ article.url }}">{{ article.title }} - {{ article.summary | replace("<p class=\"first last\">", "") | replace("</p>", "") }}</a></td>
+                  </tr>
+                 {% endfor %}
+             </tbody>
+           </table>
+           <a class="btn btn-default btn-small" href="#top">Up &#x2191;</a>
+   </div>
+</div>
 {% endblock %}

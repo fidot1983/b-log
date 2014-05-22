@@ -30,8 +30,9 @@ def process_images(generator):
 
     prefix = '/';
 
-    if not article._context['RELATIVE_URLS']:
-      prefix = article._context['SITEURL'];
+    # if not article._context['RELATIVE_URLS']:
+    # prefix = article._context['SITEURL'];
+
 
     base_url = os.path.join(prefix, 
                             os.path.dirname(article.save_as));

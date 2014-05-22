@@ -22,7 +22,7 @@ KEYWORDS = "eaa,e/ab,test,check";
 
 PATH = 'sample_content'
 PAGE_DIR = '__static'
-OUTPUT_PATH = '../fidot1983.github.io'
+OUTPUT_PATH = '../test'
 
 ARTICLE_EXCLUDES = ([PAGE_DIR])
 
@@ -43,7 +43,7 @@ AUTHORS_SAVE_AS = ''
 
 # THEME
 
-THEME = 'theme/'
+THEME = 'theme'
 
 DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'buildlog'));
 EXTRA_TEMPLATES_PATHS = (['buildlog']);

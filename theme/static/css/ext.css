@@ -12,9 +12,14 @@ hr.dashed {
   border-top: 1px dashed #ccc;
 }
 
+hr.docutils {
+  border-top: 1px dashed #ccc;
+}
+
 .first .last {
   margin: 0px;
 }
+
 
 
 

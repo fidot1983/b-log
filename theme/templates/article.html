@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ SITENAME }} - {{ article.title|striptags }}{% endblock %}
+{% block description%}{{article.summary|striptags}}{% endblock %}
 {% block content %}
         <div class="panel panel-default">
          <div class="panel-body">

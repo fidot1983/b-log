@@ -10,7 +10,7 @@
              {% for article in dates %}
                   <tr>
                    <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc">{{ article.locale_date }}</td>
-                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc"><a href="{{ SITEURL}}/{{ article.url }}">{{ article.title }} - {{ article.summary | replace("<p class=\"first last\">", "") | replace("</p>", "") }}</a></td>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc"><a href="{{ SITEURL}}/{{ article.url }}">{{ article.title }}: {{ article.summary | replace("<p class=\"first last\">", "") | replace("</p>", "") }}</a></td>
                   </tr>
                  {% endfor %}
              </tbody>

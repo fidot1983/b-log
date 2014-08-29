@@ -108,7 +108,7 @@
                </div> 
                <div class="panel-body">
                       {% for title, link in MENU_MAIN %}
-                         <p><a href="{{ link }}">{{ title }}</a></p>
+                      <p><a href="{{ link }}" alt="{{ title }}">{{ title }}</a></p>
                       {% endfor %}
                </div>
              </div>
@@ -121,12 +121,12 @@
                <div class="panel-body">
                       {% for cat, null in categories %}
                         {% if not cat in MENU_SKIP_CATEGORIES %}
-                          <p><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a></p>
+                        <p><a href="{{ SITEURL }}/{{ cat.url }}" alt="{{ cat }}">{{ cat | capitalize }}</a></p>
                         {% endif %} 
                       {% endfor %}
                       {% if TOTALS_TOTAL %}
                         <hr class="dashed">
-                        <p><a href="{{ SITEURL}}/buildlog.html">Build Log</a></p>
+                        <p><a href="{{ SITEURL}}/buildlog.html" alt="Build Log">Build Log</a></p>
                       {% endif %}
                  </p>
                </div>
@@ -141,9 +141,27 @@
                <div class="panel-body">
                  <p>
                  {%- for tag, articles in tags|sort %}
-                   <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}({{ articles|length() }})</a> 
+                 <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}" alt="{{tag}}">{{ tag }}({{ articles|length() }})</a> 
                  {% endfor %}
                  </p>
+               </div>
+             </div>
+             {% endif %}
+
+             {% if MENU_INCLUDE_RESOURCES %}
+             <div class="panel panel-default"> 
+               <div class="panel-heading">
+                <b>Resources</b>
+               </div> 
+               <div class="panel-body">
+                <!--                 <ul class="nav nav-sidebar"> -->
+                    {% for title, link in MENU_RESOURCES %}
+                      {% if title == "separator" %}
+                        <hr class="dashed">
+                      {% else %} 
+                        <p><a href="{{ link }}">{{ title }}</a></p>
+                      {% endif %} 
+                   {% endfor %}
                </div>
              </div>
              {% endif %}

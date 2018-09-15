@@ -3,12 +3,13 @@
 
 from __future__ import unicode_literals
 
+LOCALE = ("en_US", "usa")
+
 AUTHOR = 'Fi Dot'
 SITENAME = 'N79FT'
 SITESUBTITLE = 'A Skybolt Story'
 
 TIMEZONE = 'America/Chicago'
-LOCALE = ("en_US", "usa")
 
 DEFAULT_LANG = 'en'
 
@@ -21,14 +22,15 @@ KEYWORDS = "eaa,e/ab,test,check";
 # Paths
 
 PATH = 'sample_content'
-PAGE_DIR = '__static'
-OUTPUT_PATH = '../test'
+PAGE_PATHS = ['__static']
+OUTPUT_PATH = '../test_site'
 
-ARTICLE_EXCLUDES = ([PAGE_DIR])
+#ARTICLE_EXCLUDES = ([PAGE_DIR])
 
 # URL and pages options
-
-SITEURL = ''
+SITEURL = 'http://fix.me'
+# Uncomment following line if you want document-relative URLs when developing
+RELATIVE_URLS = True
 
 ARTICLE_URL = 'build/{category}-{slug}/'
 ARTICLE_SAVE_AS = 'build/{category}-{slug}/index.html'
@@ -83,7 +85,7 @@ TRANSLATION_FEED_ATOM = None
 
 # Plugins
 
-PLUGIN_PATH = 'plugins'
+PLUGIN_PATHS = ['../b-log/plugins']
 PLUGINS = ['image_copy', 'figure_process', 'totals' ]
 
 # Figure Processing Options
@@ -91,11 +93,10 @@ PLUGINS = ['image_copy', 'figure_process', 'totals' ]
 FIG_PROC_REGEN_THUMBS = 0
 
 # Path and Filename Processiog
-
 USE_FOLDER_AS_CATEGORY = 0
-#PATH_METADATA = '(?P<category>[^/].*)\\(?P<date>\d{4}-\d{2}-\d{2})/'
-#PATH_METADATA = '(?P<category>[^/].*)\\\\(?P<date>.*)\\\\(?P<slug>.*)\..*'
-PATH_METADATA = '(?P<category>[^/].*)\\\\(?P<slug>.*)\\\\(.*)'
+PATH_METADATA = '(?P<category>[^/].*)/(?P<slug>.*)/(.*)'
+# FIXME test
+SLUGIFY_SOURCE = 'basename'
 #FILENAME_METADATA = '(?P<slug>[^.]*).*'
 
 # Misc
@@ -103,6 +104,5 @@ PATH_METADATA = '(?P<category>[^/].*)\\\\(?P<slug>.*)\\\\(.*)'
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
 
 

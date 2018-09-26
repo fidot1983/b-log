@@ -1,0 +1,142 @@
+"Expect lower at the end of this transmission."
+  -ORD ATC
+%
+"Citation 123, if you quit calling me center, I'll quit calling you twin Cessna."
+  -ORD ATC
+%
+"About three miles ahead you've got traffic 12 o'clock, five miles."
+  -ORD ATC
+%
+"If you hear me, traffic no longer a factor."
+  -ORD ATC
+%
+"You got him on TCAS? Great. When you're seven in trail, resume normal speed and call Chicago Center on 120.12."
+  -ORD ATC
+%
+"I am way too busy for anybody to cancel on me."
+  -ORD ATC
+%
+"You got any more smart remarks, we can be doing this over South Bend ... go ahead."
+  -ORD ATC
+%
+"you're gonna have to key the mike. I can't see you when you nod your head."
+  -ORD ATC
+%
+"It's too late for Louisville. we're going back to O'Hare."
+  -ORD ATC
+%
+"Put your compass on 'E' and get out of my airspace."
+  -ORD ATC
+%
+"Don't anybody maintain anything.
+  -ORD ATC
+%
+"Caution wake turbulence you're following a heavy 12 o'clock, three ... no, let's make it five miles."
+  -ORD ATC
+%
+"Climb like you're life depends on it ... because it does."
+  -ORD ATC
+%
+"If you want more room Captain, push your seat back."
+  -ORD ATC
+%
+"For radar identification throw your jumpseat rider out the window."
+  -ORD ATC
+%
+"Air Force one, I told you to expedite."
+  -ORD ATC
+%
+"Listen up gentlemen, or something's gonna happen that none of us wants to see. Besides that, you're (tickin') me off!"
+  -ORD ATC
+%
+"Leave five on the glide, have a nice ride, tower inside, twenty-six nine .... see ya!"
+  -ORD ATC
+%
+"Japan Air Ten Heavy, how 'bout a radio check?"
+(Response - "Rogah, switching!")
+  -ORD ATC
+%
+"Approach, how far from the airport are we in minutes?"
+"N923, the faster you go, the quicker you'll get here."
+  -ORD ATC
+%
+"American Two-Twenty, Eneey, meeny, miney, moe, how do you hear my radio?"
+  -ORD ATC
+%
+"Air Wisconsin Three-Thirty-Five, caution wake turbulence, there is an Air Wisconsin Three-Forty-Five on the frequency."
+  -ORD ATC
+%
+"I don't mind altitude separation as long as they're not on top of each other."
+  -ORD ATC
+%
+"We were told Rwy 9...we'll take out the 14R approach plate."
+"Captain you got sixty miles to take it out...have a ball."
+  -ORD ATC
+%
+"The traffic at nine o'clock's gonna do a little Linda Ronstadt on you."
+"Linda Ronstadt? What's that?"
+"Well, sir, they're gonna 'Blue Bayou.'"
+  -ORD ATC
+%
+"I can see the country club down below...look's like a lot of controllers out there!"
+"Yes, sir, there is...and they're caddying for DC-10 drivers like you."
+  -ORD ATC
+%
+"N07K you look like you're established on the localizer and I don't know the names of any of the fixes, you're cleared for the ILS approach. Call the tower."
+  -ORD ATC
+%
+"MidEx 726, sorry about that, Center thought you were a Midway arrival. Just sit back, relax and pass out some more cookies ... we'll get you to Milwaukee."
+  -ORD ATC
+%
+"Approach, what's our sequence?"
+"Calling for the sequence I missed your callsign, but if I find out what it is, you're last."
+  -ORD ATC
+%
+"Sure you can have eight miles behind the heavy...there'll be a United tri-jet between you and him."
+  -ORD ATC
+%
+"Approach, SWA436, you want us to turn right to 090?"
+"No, I want your brother to turn. Just do it and don't argue."
+  -ORD ATC
+%
+"Approach UAL525 what's this aircraft doing at my altitude?"
+"UAL525, what makes you think it's YOUR altitude, Captain?"
+  -ORD ATC
+%
+"DAL1176, say speed."
+"DAL1176, we slowed it down to two-twenty."
+"DAL1176 pick it back up to two-fifty ... this ain't Atlanta, and them ain't grits on the ground."
+  -ORD ATC
+%
+"Request Runway 27 Right."
+"Unable."
+"Approach, do you know the wind at six thousand is 270 at fifty?"
+"Yeah, I do, and if we could jack the airport up to fifty-five hundred you could have that runway. Expect 14 Right."
+  -ORD ATC
+%
+"Air Force Four-Five, it appears your engine has...oh, disregard...I see you've already ejected."
+  -ORD ATC
+%
+"The first officer says he's got you in sight."
+"Roger, the first officer's cleared for a visual approach runway 27 Right...you continue on that 180 heading and descend to three thousand."
+  -ORD ATC
+%
+"Hey, O'Hare, you see the 7600 code flashing five northwest of Gary?"
+"Yeah, I do...you guys talkin' to him?"
+  -ORD ATC
+%
+"Approach, what's the tower?"
+"That's a big tall building with glass all around it, but that's not important right now."
+  -ORD ATC
+%
+"How far behind traffic are we?"
+"Three miles."
+"That doesn't look like three miles to us!"
+"you're a mile and a half from him, he's a mile and a half from you...that's three miles."
+  -ORD ATC
+%
+And the number one actual transmission heard in the O'Hare TRACON is:
+  -ORD ATC
+%
+"Turn in and take over .. you know the rest."
+

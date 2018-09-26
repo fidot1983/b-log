@@ -19,7 +19,7 @@
 
         <!-- FavIcon --> 
 
-        <link rel="icon" type="image/jpg" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/icon_small.jpg">
+        <link rel="icon" type="image/jpg" href="{{ SITEURL }}/logos/icon_small.jpg">
 
         <!-- Add jQuery library -->
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -51,6 +51,7 @@
         <!-- End Fancy Box -->
 
         <!-- Bootstrap --> 
+
         <link rel="stylesheet" href="{{ SITEURL  }}/{{ THEME_STATIC_DIR}}/css/bootstrap/bootstrap.min.css"/>
         <link rel="stylesheet" href="{{ SITEURL  }}/{{ THEME_STATIC_DIR}}/css/ext.css"/>
 
@@ -81,6 +82,7 @@
 {% include 'github.html' %}
      <a name="top"></a>
      <div class="container">
+
          <div class="row">
            <p></p>
          </div>
@@ -89,8 +91,8 @@
            <div class="panel-body">
             <table class="table" style="border: 0; margin-bottom: 0">
               <tr> 
-               <td style="vertical-align: middle; border: 0; padding: 0"><h1>{{ SITENAME }} {% if SITESUBTITLE %} <small>{{ SITESUBTITLE }}</small>{% endif %}</h1></td>
-               <td style="vertical-align: bottom; text-align:right; border: 0; padding: 0"><img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/outline.jpg"></td>
+               <td style="vertical-align: middle; border: 0; padding: 0"><h1>[{{ SITENAME }}]{% if SITESUBTITLE %}: <small>{{ SITESUBTITLE }}</small>{% endif %}</h1></td>
+               <td style="vertical-align: bottom; text-align:right; border: 0; padding: 0"><img src="{{ SITEURL }}/logos/logo.jpg"></td>
               </tr>
             </table>
            </div>
@@ -113,24 +115,35 @@
                </div>
              </div>
 
-             <!-- Build Menu --> 
-             <div class="panel panel-default"> 
-               <div class="panel-heading">
-                <b>The Project</b>
-               </div> 
-               <div class="panel-body">
-                      {% for cat, null in categories %}
-                        {% if not cat in MENU_SKIP_CATEGORIES %}
-                        <p><a href="{{ SITEURL }}/{{ cat.url }}" alt="{{ cat }}">{{ cat | capitalize }}</a></p>
-                        {% endif %} 
-                      {% endfor %}
-                      {% if TOTALS_TOTAL %}
-                        <hr class="dashed">
-                        <p><a href="{{ SITEURL}}/buildlog.html" alt="Build Log">Build Log</a></p>
-                      {% endif %}
-                 </p>
+             <!-- Projects Menus - one per project --> 
+         
+             {% for project, menu_config in B_LOG_PROJECTS_MENU %}
+               <div class="panel panel-default"> 
+                 <div class="panel-heading">
+                    <b>{{ B_LOG_PROJECT_TITLES[project] }}</b>
+                 </div> 
+
+                   <div class="panel-body">
+                        {% for cat_title, cat  in B_LOG_PROJECTS[project] %}
+                          <p><a href="{{ SITEURL }}/{{ cat.url }}" alt="{{ cat_title }}">{{ cat_title }}</a></p>
+                        {% endfor %}
+                        {#
+                        {% if B_LOG_PROJECT_LOGS[project] %}
+                           <hr class="dashed">
+                           <p><a href="{{ SITEURL}}/{{ B_LOG_PROJECT_LOGS[project].url }}" alt="Build Log">Build Log</a></p>
+                        {% endif %}
+                        #}
+                   </div>
+
+                   {% if B_LOG_PROJECT_LOGS[project] %}
+                    <div class="panel-footer">
+                      <a href="{{ SITEURL}}/{{ B_LOG_PROJECT_LOGS[project].url }}" alt="Build Log">Build Log</a>
+                    </div>
+                   {% endif %}
+
                </div>
-             </div>
+
+             {% endfor %}
 
              <!-- Tags --> 
              {% if MENU_INCLUDE_TAGS -%}
@@ -197,28 +210,40 @@
           </div>
        </div>
 
+
        <div class="row">
          <div class="col-md-12">
           <hr>
          </div>
        </div>
 
+
       <div class="row">
          <div class="col-md-4">
-          <small>Powered by <a href="/build/blog-b-log/">B-Log</a>, which is based on <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>, heavily plugged and themed.</small>
+          <small>Powered by <a href="https://github.com/fidot1983/b-log">B-Log</a>, which is based on <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>, heavily plugged and themed.</small>
          </div>
          <div class="col-md-4">
             {% set date_start = dates[-1].date.year if dates else None %}
             {% set date_end   = dates[0].date.year if dates else None %}
-            <p><small>&copy; Copyright {{ date_start if date_start }}{{ '-%s' % date_end if date_end and date_end != date_start }} "{{ SITENAME }}". All rights reserved.</p>
+            <p><small>&copy; Copyright "{{ SITENAME }}". All rights reserved. Feel free to cite, but link back to the pages cited.</p>
+            {#
+            <p><small>&copy; Copyright {{ date_start if date_start }}{{ '-%s' % date_end if date_end and date_end != date_start }} "{{ SITENAME }}". All rights reserved. Feel free to cite, but link back to the pages cited.</p>
+            #}
          </div>
          <div class="col-md-4">
            <p>
-           This construction log only shows how I did things during the construction of my Skybolt. These pages are for information and personal entertainment
-           only and not to be construed as the only way, or even the perceived correct way of doing things.  You are responsible for your own construction techniques.
+           This website only shows how I did things in my various projects. These pages are for information and personal entertainment
+           only and not to be construed as the only way, or even the perceived correct way of doing things. 
+           You are responsible for your own safety and techniques.
            </p>
          </div>
 
+      </div>
+
+      <div class="row">
+         <div class="col-md-12">
+           {{ COWSAY }}
+         </div>
       </div>
 
    </div>

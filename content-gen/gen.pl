@@ -20,20 +20,19 @@ my $ImgDir = "$Bin/images";
 my $OutDir = "$Bin/../mock";
 my $HelpFlag;
 
+my @Projects = qw(project.one project.two .);
 my @Categories = 
  (
    "wings",  
    "fuselage", 
-   "empennage", 
    "firewall-forward", 
-   "panel",
-   "electrical", 
-   "fabric", 
-   "paint", 
-   "blog",
+   "no-articles",
  );
 
-my $Count = @Categories;
+my @Tags = qw(tagone tagtwo tagthree);
+
+my $BaseCount = @Categories * @Projects;
+my $Count = 1;
 
 my $Ret = Getopt::Long::GetOptions("help" => \$HelpFlag, 
                                    "count=i" => \$Count,
@@ -69,42 +68,76 @@ print "\n ";
 select STDERR;
 $| = 1;
 
-for(0..$Count-1)
+my $No = 0;
+
+foreach my $Proj(@Projects)
 {
-  print ".";
-  print $_+1 unless($_+1 % 100);
+  my @Extras = ($Proj eq '.') ? qw(blog) : ();
 
-
-
-  my $Cat = $Categories[$_ % @Categories];
-  my $Img = $Images->[$_ % @$Images];
-
-  my @Tags;
-  my $CatIdx = 0;
-
-  for(0..int(rand(@Categories)))
+  foreach my $Cat((@Categories, @Extras))
   {
-    push(@Tags, $Categories[ $CatIdx++ % @Categories ]);
+    for(0..$Count-1)
+    {
+      unless($Cat eq 'no-articles')
+      {
+        my @ArticleTags;
+        my $TagIdx = 0;
+
+        for(0..int(rand(@Tags)))
+        {
+          push(@ArticleTags, $Tags[ $TagIdx++ % @Tags ]);
+        }
+
+        GenArticle(cat => $Cat, 
+                   prj => $Proj,
+                   img => $Images->[$No % @$Images],
+                   no => $No,
+                   date => $Date, 
+                   tags => join(', ', @ArticleTags)
+                  );
+      }
+
+      if($Cat ne 'blog')
+      {
+        AddLogEntry(cat => $Cat, 
+                    prj => $Proj,
+                    no => $No,
+                    date => $Date, 
+                   );
+      }
+
+      $No++;
+      $Date += 3600*25;
+    }
   }
-
-
-  GenArticle(cat => $Cat, 
-             img => $Img, 
-             date => $Date, 
-             tags => join(', ', @Tags)
-            );
-
-  $Date += 3600*25;
 }
 
 print("\n");
 
 
-
-
 ################################################################################
 ## Functions
 ################################################################################
+
+sub AddLogEntry
+{
+  my %Args = @_;
+
+  my $WorkTime = sprintf("%.2f", rand(4));
+  my ($Sec, $Min, $H, $Day, $Month, $Year) = localtime($Args{date});
+
+  $Year += 1900;
+  $Month += 1;
+
+  my $DateStr = "$Year-$Month-$Day";
+  my $OutPath = "$OutDir/$Args{prj}/$Args{cat}/";
+  mkpath($OutPath) unless (-e $OutPath);
+
+  open(F, ">>$OutPath/$Args{cat}.log");
+  print F 
+    "$DateStr| Log $Args{prj} entry $Args{no} work on $Args{cat}| $WorkTime\n";
+  close(F);
+}
 
 sub GenArticle
 {
@@ -119,7 +152,7 @@ sub GenArticle
 
   my $DateStr = "$Year-$Month-$Day";
 
-  my $OutPath = "$OutDir/$Args{cat}/$DateStr";
+  my $OutPath = "$OutDir/$Args{prj}/$Args{cat}/$DateStr-description";
   mkpath($OutPath);
 
   my $Text = GetText(%Args, logged => $WorkTime, date => $DateStr);
@@ -145,15 +178,18 @@ sub GetText
 
 << "END"
 
-Doing Stuff
-###########
+$Args{prj}: working on $Args{cat} category, entry $Args{no}
+###############################################################################
 
 :tags: $Args{tags}
-:summary: Summary of doing stuff
+:summary: summary on $Args{cat}
 :date: $Args{date}
 $ExtraMeta
 
 I did some stuff today. 
+Category for this article: $Args{cat}
+Project for this article: $Args{prj}
+No for this article: $Args{no}
 
 This is stuff
 -------------
@@ -170,6 +206,8 @@ non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
    This is a figure
 
 And so stuff goes.
+
+
 END
 }
 

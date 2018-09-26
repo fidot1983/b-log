@@ -3,66 +3,85 @@
 
 from __future__ import unicode_literals
 
+################################################################################
+## General Site Config
+################################################################################
+
 LOCALE = ("en_US", "usa")
 
 AUTHOR = 'Fi Dot'
-SITENAME = 'N79FT'
-SITESUBTITLE = 'A Skybolt Story'
+SITENAME = 'B-Log'
+SITESUBTITLE = 'Building Stuff'
 
 TIMEZONE = 'America/Chicago'
 
 DEFAULT_LANG = 'en'
 
-# DO NOT REENABLE -- GIT WILL SCREW ITSELF UP AND OVER!!
-DELETE_OUTPUT_DIRECTORY= 0
-
 DESCRIPTION = "Steen Skybolt N79FT builder's log, blog, and website. "
 KEYWORDS = "eaa,e/ab,test,check";
 
-# Paths
+SITEURL = 'http://fix.me'
+
+################################################################################
+## Source, output paths, URLs and similar
+################################################################################
 
 PATH = 'sample_content'
-PAGE_PATHS = ['__static']
+#PATH = 'minimal'
+#ARTICLE_PATHS = ['mock']
+PAGE_PATHS = ['pages']
+STATIC_PATHS = ['logos']
+
+B_LOG_LOG_EXTENSION = 'log'
+
 OUTPUT_PATH = '../test_site'
 
-#ARTICLE_EXCLUDES = ([PAGE_DIR])
+B_LOG_BLOG_CATEGORY = 'blog'
+B_LOG_DEFAULT_PROJECT = 'Default Project'
 
 # URL and pages options
-SITEURL = 'http://fix.me'
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-ARTICLE_URL = 'build/{category}-{slug}/'
-ARTICLE_SAVE_AS = 'build/{category}-{slug}/index.html'
+# Where to save build logs for projects
+B_LOG_LOGS_URL = 'logs'
 
-#YEAR_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/index.html'
-#MONTH_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/index.html'
-#DAY_ARCHIVE_SAVE_AS = 'b-log/{date:%Y}/{date:%b}/{date:%d}/index.html'
+################################################################################
+## B-Log Theme Settings
+################################################################################
 
-# Have to have these
-AUTHOR_SAVE_AS = ''
-AUTHORS_SAVE_AS = ''
+THEME = '../b-log/theme'
+DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', '404'));
 
-# THEME
+B_LOG_DATE_FORMAT = "%b %d, %Y"
 
-THEME = 'theme'
-
-DIRECT_TEMPLATES = (('index', 'tags', 'categories', 'archives', 'buildlog'));
-EXTRA_TEMPLATES_PATHS = (['buildlog']);
-
-# TOP MENU
+################################################################################
+## Navigation
+################################################################################
 
 MENU_MAIN = (
                ( 'Home', '/'), 
-               ( 'About', '/'), 
+               ( 'About', '/pages/about/'), 
                ( 'Blog', '/category/blog.html'), 
+               ( 'Archive', '/archives.html'), 
+               ( 'Subscribe (RSS)', '/rss.xml'),
             );
 
 MENU_INCLUDE_TAGS = 1
 
-MENU_SKIP_CATEGORIES = ['blog'];
+# Note - at the moment collapsible projects are NOT supported. 
+# Doing this would require re-building Bootstrap config I used, and 
+# I unfortunately do  not have it :( So basically, the second
+# element of the tuple is ignored
+
+B_LOG_PROJECTS_MENU = ( 
+                        (B_LOG_DEFAULT_PROJECT, "COLLAPSED"),
+                        ("project.one", "OPEN"),
+                        ("project.two", "ALWAYS_OPEN"),
+                      )
 
 MENU_INCLUDE_LINKS = 1
+
 MENU_LINKS =  (
           ('Biplane Forum', 'http://www.biplaneforum.com/'),
           ('Steen Aerolab', 'http://www.steenaero.com/'),
@@ -74,35 +93,51 @@ MENU_LINKS =  (
           ('TX EAA 187 (facebook)', 'https://www.facebook.com/eaa187'),
          );
 
-
-# TAGS
+################################################################################
+## Pelican Options
+################################################################################
 
 # Feed generation is usually not desired when developing
+FEED_DOMAIN = SITEURL
+FEED_RSS = "rss.xml"
+
+AUTHOR_FEED_ATOM = None
+AUTHOR_FEED_RSS = None
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 
-
 # Plugins
 
 PLUGIN_PATHS = ['../b-log/plugins']
-PLUGINS = ['image_copy', 'figure_process', 'totals' ]
+
+PLUGINS = ['image_copy', 'figure_process', 'b_log', 'qotd', 'sitemap' ]
+
+# Date formats for articles and pages
+DATE_FORMATS = { 'en' : '%b %d, %Y' };
 
 # Figure Processing Options
-
 FIG_PROC_REGEN_THUMBS = 0
 
 # Path and Filename Processiog
 USE_FOLDER_AS_CATEGORY = 0
 PATH_METADATA = '(?P<category>[^/].*)/(?P<slug>.*)/(.*)'
-# FIXME test
-SLUGIFY_SOURCE = 'basename'
-#FILENAME_METADATA = '(?P<slug>[^.]*).*'
 
 # Misc
 
 DEFAULT_PAGINATION = 10
 
-# Uncomment following line if you want document-relative URLs when developing
+# DO NOT REENABLE -- GIT WILL SCREW ITSELF UP AND OVER!!
+#DELETE_OUTPUT_DIRECTORY= 0
+DELETE_OUTPUT_DIRECTORY=1
+# FIXME it's possible to prevent deleting .git dir - check this
 
+ARTICLE_URL = 'entries/{category}-{slug}/'
+ARTICLE_SAVE_AS = 'entries/{category}-{slug}/index.html'
 
+PAGE_URL = 'pages/{slug}/'
+PAGE_SAVE_AS = 'pages/{slug}/index.html'
+
+# Have to have these
+AUTHOR_SAVE_AS = ''
+AUTHORS_SAVE_AS = ''

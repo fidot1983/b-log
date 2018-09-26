@@ -18,40 +18,45 @@ logger = logging.getLogger(__name__)
 INLINE_STATIC_EXTENSIONS = ('png', 'jpeg', 'jpg');
 ARTICLE_TAG = '{article}';
 
-def process_images(generator):
-#  print("Image processing generator called");
+def process_images(src, generator):
 
-  for article in generator.articles:
-    article_path = os.path.dirname(article.source_path);
+  for item in src:
+    path = os.path.dirname(item.source_path);
 
-    out_path = os.path.join(article._context['OUTPUT_PATH'], 
-                            article.save_as);
+    out_path = os.path.join(item._context['OUTPUT_PATH'], 
+                            item.save_as);
     out_dir = os.path.dirname(out_path);
 
     prefix = '/';
 
-    # if not article._context['RELATIVE_URLS']:
-    # prefix = article._context['SITEURL'];
-
-
     base_url = os.path.join(prefix, 
-                            os.path.dirname(article.save_as));
+                            os.path.dirname(item.save_as));
 
     base_url = base_url.replace('\\', '/');
 
     if not os.path.exists(out_dir):
          os.makedirs(out_dir);
 
-    from pprint import pprint;
-    for f in generator.get_files(article_path, 
+    for f in generator.get_files(path, 
                                  extensions=INLINE_STATIC_EXTENSIONS):
-         src = os.path.join(article._context['PATH'], f);
+         src = os.path.join(item._context['PATH'], f);
          if not os.path.exists(os.path.join(out_dir, os.path.basename(src))):
            shutil.copy(src, out_dir);
 
+    item._content = item._content.replace(ARTICLE_TAG, base_url);
 
+def wrapper_articles(generator):
+  process_images(generator.articles, generator)
 
-    article._content = article._content.replace(ARTICLE_TAG, base_url);
+def wrapper_pages(generator):
+  process_images(generator.pages, generator)
 
 def register():
-  signals.article_generator_finalized.connect(process_images);
+#  def wrapper_articles(g):
+#    process_images('articles', g)
+#  def wrapper_pages(g):
+#    process_images('pages', g)
+
+#  signals.article_generator_finalized.connect(process_images)
+  signals.article_generator_finalized.connect(wrapper_articles)
+  signals.page_generator_finalized.connect(wrapper_pages)

@@ -9,7 +9,7 @@
          <tbody>
              {% for article in dates %}
                   <tr>
-                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc">{{ article.date.strftime(B_LOG_DATE_FORMAT) }}</td>
+                   <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; white-space: nowrap;">{{ article.date.strftime(B_LOG_DATE_FORMAT) }}</td>
                    <td style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc"><a href="{{ SITEURL}}/{{ article.url }}">{{ article.title }}: {{ article.summary | replace("<p class=\"first last\">", "") | replace("</p>", "") }}</a></td>
                   </tr>
                  {% endfor %}

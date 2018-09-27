@@ -145,21 +145,6 @@
 
              {% endfor %}
 
-             <!-- Tags --> 
-             {% if MENU_INCLUDE_TAGS -%}
-             <div class="panel panel-default"> 
-               <div class="panel-heading">
-                <b>Tagcloud</b>
-               </div> 
-               <div class="panel-body">
-                 <p>
-                 {%- for tag, articles in tags|sort %}
-                 <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}" alt="{{tag}}">{{ tag }}({{ articles|length() }})</a> 
-                 {% endfor %}
-                 </p>
-               </div>
-             </div>
-             {% endif %}
 
              {% if MENU_INCLUDE_RESOURCES %}
              <div class="panel panel-default"> 
@@ -193,6 +178,22 @@
                         <p><a href="{{ link }}" target="_blank">{{ title }}</a></p>
                       {% endif %} 
                    {% endfor %}
+               </div>
+             </div>
+             {% endif %}
+
+             <!-- Tags --> 
+             {% if MENU_INCLUDE_TAGS -%}
+             <div class="panel panel-default"> 
+               <div class="panel-heading">
+                <b>Tagcloud</b>
+               </div> 
+               <div class="panel-body">
+                 <p>
+                 {%- for tag, articles in tags|sort %}
+                 <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}" alt="{{tag}}">{{ tag }}({{ articles|length() }})</a> 
+                 {% endfor %}
+                 </p>
                </div>
              </div>
              {% endif %}

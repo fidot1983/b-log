@@ -129,7 +129,7 @@ DEFAULT_PAGINATION = 10
 
 # DO NOT REENABLE -- GIT WILL SCREW ITSELF UP AND OVER!!
 #DELETE_OUTPUT_DIRECTORY= 0
-DELETE_OUTPUT_DIRECTORY=1
+DELETE_OUTPUT_DIRECTORY=0
 # FIXME it's possible to prevent deleting .git dir - check this
 
 ARTICLE_URL = 'entries/{category}-{slug}/'

@@ -186,12 +186,12 @@
              {% if MENU_INCLUDE_TAGS -%}
              <div class="panel panel-default"> 
                <div class="panel-heading">
-                <b>Tagcloud</b>
+                <b>Tags</b>
                </div> 
                <div class="panel-body">
                  <p>
                  {%- for tag, articles in tags|sort %}
-                 <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}" alt="{{tag}}">{{ tag }}({{ articles|length() }})</a> 
+                 <a class="btn btn-primary btn-xs" style="margin-top: 3px" href="{{ SITEURL }}/{{ tag.url }}" alt="{{tag}}">{{ tag }}({{ articles|length() }})</a><br>
                  {% endfor %}
                  </p>
                </div>

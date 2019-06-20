@@ -39,29 +39,29 @@ DEFAULTS = {
 # list. Since we're using concept of "article" as a Log Entry here, 
 # we can't really use the Reader; which'd be nice. 
 # Therefore, the log files are actually read and parsed in the Generator. 
-class LogsReader(pelican.readers.BaseReader):
-  enabled = False
-
-#  def __init__(self, *a, **kv):
-#    super(LogsReader, self).__init__(*a, **kv)
-#    pprint(inspect.trace())
-#    raise Exception('INIT in Logs Reader')
-
-  def read(self, filename):
-
-    logger.debug(f"Log reader: reading {filename}")
-    meta =  {
-              'title': filename, 
-              'date': '1900-1-1', 
-              'slug': filename,
-            }
-
-    parsed = {}
-    for k,v in meta.items():
-      parsed[k] = self.process_metadata(k, v)
-
-    return "", parsed
-
+#class LogsReader(pelican.readers.BaseReader):
+#  enabled = False
+#
+##  def __init__(self, *a, **kv):
+##    super(LogsReader, self).__init__(*a, **kv)
+##    pprint(inspect.trace())
+##    raise Exception('INIT in Logs Reader')
+#
+#  def read(self, filename):
+#
+#    logger.debug(f"Log reader: reading {filename}")
+#    meta =  {
+#              'title': filename, 
+#              'date': '1900-1-1', 
+#              'slug': filename,
+#            }
+#
+#    parsed = {}
+#    for k,v in meta.items():
+#      parsed[k] = self.process_metadata(k, v)
+#
+#    return "", parsed
+#
 
 # Generates data structures necessary for the 
 # Totals template in generate_context(); 

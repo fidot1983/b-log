@@ -132,6 +132,9 @@ DEFAULT_PAGINATION = 10
 DELETE_OUTPUT_DIRECTORY=0
 # FIXME it's possible to prevent deleting .git dir - check this
 
+
+# This will produce ugly URLs if you have projects with subcategories - 
+# removing {category}- and ensuring your slugs are unique is one way to WAR this
 ARTICLE_URL = 'entries/{category}-{slug}/'
 ARTICLE_SAVE_AS = 'entries/{category}-{slug}/index.html'
 

@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 DEFAULTS = {
              'B_LOG_LOG_EXTENSION': 'log', 
              'B_LOG_LOG_SEPARATOR': '|',
+             'B_LOG_LOG_FUTURE_LINK_MARKER': 'F_',
 
              'B_LOG_DEFAULT_PROJECT': 'Misc', 
 
@@ -90,12 +91,14 @@ class TotalsGenerator(pelican.generators.Generator):
     for cat, logs in log.items():
       if (cat.find('/') > 0):
         (project, category) = cat.split('/')
+        logs = log[cat]
+
         self.append_log_entries(ret, project, log[cat], category) 
       else:
         # This prevents logging time in default project
         # Again, for now. 
         pass
-    
+
     # Finally, sort log entries on a per-project basis
     for project in ret.values():
       project['entries'] = sorted(project['entries'], 
@@ -171,6 +174,9 @@ class TotalsGenerator(pelican.generators.Generator):
         date = self.base_pelican_reader.process_metadata('date', date)
         summary = summary.strip()
 
+        # Now, populate inline links in the article
+        summary = self.add_article_links(full_path, summary)
+
         # Time will be cleaned up by log_entry()
         entry = log_entry(date, summary, time)
 
@@ -179,6 +185,58 @@ class TotalsGenerator(pelican.generators.Generator):
         ret['entries'].append(entry)
 
     return(ret)
+
+  def add_article_links(self, full_path, summary):
+
+    for match in (re.finditer('({.*?})', summary)):
+      found = match.group(1)
+      html = self.get_article_link(full_path, found)
+      summary = re.sub(found, html, summary)
+
+    return summary
+
+  def get_article_link(self, log_path, link_str):
+    link = link_str.lstrip('{').rstrip('}').split(" ")
+
+    target = link.pop(0)
+    text = " ".join(link)
+    target = target.lstrip('/')
+
+    logger.debug(f"Log path: {log_path}")
+    logger.debug(f"Target: {target}")
+    logger.debug(f"Text: {text}")
+
+    if(target.startswith(self.context['B_LOG_LOG_FUTURE_LINK_MARKER'])):
+      return(f"{text} <b><i>(TBW)</b></i>")
+
+    article_path = os.path.realpath(os.path.join(os.path.dirname(log_path), target))
+    logger.debug(f"Article: {article_path}")
+
+    article = self.find_article_by_filepath(article_path)
+    if(not article):
+      raise Exception(f"Bad link: {target} in {log_path}")
+
+    # Super cheating
+    return(f'<a href="/{article.url}">{text}</a>')
+
+  def find_article_by_filepath(self, path):
+    if(not('B_LOG_ARTICLES_BY_PATH_CACHE' in self.context)):
+      self.context['B_LOG_ARTICLES_BY_PATH_CACHE'] = {}
+
+    cache = self.context['B_LOG_ARTICLES_BY_PATH_CACHE']
+
+    if(not(path in cache)):
+      found = 0
+
+      for a in self.context['articles']:
+        if(a.source_path == path):
+          found = 1
+          cache[path] = a
+
+      if not found:
+        return None
+
+    return(cache[path])
 
   def generate_output(self, writer):
      for project, logs in self.context['B_LOG_PROJECT_LOGS'].items():

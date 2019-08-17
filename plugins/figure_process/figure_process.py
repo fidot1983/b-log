@@ -60,6 +60,10 @@ class Figure(Directive):
      return [ret];
 
    def create_thumb(self, image_path):
+
+     if(image_path.endswith('gif')):
+       return(os.path.basename(image_path))
+
      thumb_path = os.path.splitext(image_path)[0] + '-thumb.jpg';
      thumb_name = os.path.basename(thumb_path);
 

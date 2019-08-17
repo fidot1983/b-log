@@ -15,7 +15,7 @@ from pelican.utils import mkdir_p, copy
  
 logger = logging.getLogger(__name__)
  
-INLINE_STATIC_EXTENSIONS = ('png', 'jpeg', 'jpg');
+INLINE_STATIC_EXTENSIONS = ('png', 'jpeg', 'jpg', 'gif');
 ARTICLE_TAG = '{article}';
 
 def process_images(src, generator):

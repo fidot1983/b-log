@@ -80,6 +80,8 @@ class TotalsGenerator(pelican.generators.Generator):
 
   def generate_context(self):
     logger.debug("Totals generator generate_context() called")
+
+    self.context['TIMES_BY_ARTICLE'] = {}
     
     log_entries = self.generate_log_entries()
     project_logs = self.generate_project_logs(log_entries)
@@ -174,50 +176,77 @@ class TotalsGenerator(pelican.generators.Generator):
         date = self.base_pelican_reader.process_metadata('date', date)
         summary = summary.strip()
 
-        # Now, populate inline links in the article
-        summary = self.add_article_links(full_path, summary)
+        # Now, find linked articles, 
+        # add time to them, and populate links
+        articles = self.find_linked_articles(full_path, summary)
+
+        if(len(articles)):
+          if(len(articles) > 1):
+             raise Exception(f"Log entry {full_path}:{line_no} references" +                                  "more than one article")
+
+          article = articles[0]
+          summary = self.add_article_link(summary, article)
+
+          if(article):  # To Be Written articles will show up as None
+            if(hasattr(article, 'logged')):
+               article.logged = float(article.logged) + float(time)
+            else:
+               article.logged = time
 
         # Time will be cleaned up by log_entry()
         entry = log_entry(date, summary, time)
-
         ret['total'] += entry['logged']
         ret['count'] += 1
         ret['entries'].append(entry)
 
     return(ret)
 
-  def add_article_links(self, full_path, summary):
+  def add_article_link(self, summary, article):
 
     for match in (re.finditer('({.*?})', summary)):
       found = match.group(1)
-      html = self.get_article_link(full_path, found)
+      html = self.get_article_link(found, article)
       summary = re.sub(found, html, summary)
+    
+    return(summary)
 
-    return summary
+  def find_linked_articles(self, full_path, summary):
+    ret = []
+    future_marker = self.context['B_LOG_LOG_FUTURE_LINK_MARKER']
 
-  def get_article_link(self, log_path, link_str):
-    link = link_str.lstrip('{').rstrip('}').split(" ")
+    for match in (re.finditer('({.*?})', summary)):
+      found = match.group(1)
+      article_relpath = found.lstrip('{').rstrip('}').split(" ")[0]
 
-    target = link.pop(0)
-    text = " ".join(link)
-    target = target.lstrip('/')
+      if(article_relpath.startswith(future_marker)):
+        ret.append(None)
+        continue
 
-    logger.debug(f"Log path: {log_path}")
-    logger.debug(f"Target: {target}")
-    logger.debug(f"Text: {text}")
+      article = self.find_article(full_path, article_relpath)
 
-    if(target.startswith(self.context['B_LOG_LOG_FUTURE_LINK_MARKER'])):
+      if(not article):
+        raise Exception(f"Bad link: {article_relpath}")
+
+      ret.append(article)
+
+    return(ret)
+
+  def get_article_link(self, token, target_article):
+
+    token = token.lstrip('{').rstrip('}').split(" ")
+    token.pop(0)
+    text = " ".join(token)
+
+    if(not target_article):
       return(f"{text} <b><i>(TBW)</b></i>")
+    else:
+      return(f'<a href="/{target_article.url}">{text}</a>')
 
-    article_path = os.path.realpath(os.path.join(os.path.dirname(log_path), target))
-    logger.debug(f"Article: {article_path}")
-
-    article = self.find_article_by_filepath(article_path)
-    if(not article):
-      raise Exception(f"Bad link: {target} in {log_path}")
-
-    # Super cheating
-    return(f'<a href="/{article.url}">{text}</a>')
+  def find_article(self, log_path, rel_path):
+    article_path = os.path.realpath(os.path.join(os.path.dirname(log_path), 
+                                    rel_path))
+    return(self.find_article_by_filepath(article_path))
+    
 
   def find_article_by_filepath(self, path):
     if(not('B_LOG_ARTICLES_BY_PATH_CACHE' in self.context)):

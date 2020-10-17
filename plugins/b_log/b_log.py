@@ -165,6 +165,7 @@ class TotalsGenerator(pelican.generators.Generator):
     with open(full_path, "r") as fh:
       for line in fh:
         line_no += 1
+        logger.debug(f"Parsing line: `{line}`")
         try:
           (date, summary, time) = line.split(log_sep)
         except Exception as e:
